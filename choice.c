@@ -1,28 +1,32 @@
 #include "push_swap.h"
 
-int lis(lst l) {
+int find_midpoint(t_lst l)
+{
+    int a[l->qnt];
+    int	j;
     int i;
-    int j;
-    int k;
-    int cnt;
-    int max;
+    int tmp;
 
-    max = 0;
-    i = l->head;
-    while(i < l->qnt)
+    j = -1;
+    i  = l->head;
+    while (++j < l->qnt)        
     {
-        j = i;
-        cnt = 0;
-        k = 0;
-        while (j < l->qnt)
-        {
-            k++;
-            cnt++;
-            j = l->next[j];
-        }
-        if (max < cnt)
-            max = cnt;
         i = l->next[i];
+        a[j] = l->info[i].num;
     }
-    return (max);
+    j = -1;
+	while (++j < l->qnt)
+	{
+		i = -1;
+		while (++i < l->qnt - 1)
+		{
+			if (a[i] > a[i + 1])
+			{
+				tmp = a[i];
+				a[i] = a[i + 1];
+				a[i + 1] = tmp;
+			}
+		}
+	}
+    return (a[l->qnt / 2]);
 }

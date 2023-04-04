@@ -1,23 +1,25 @@
 #include "push_swap.h"
 
-void    rrot(lst l)
+void    rrot(t_lst l)
 {
     l->head = l->tail;
     l->tail = l->prev[l->tail];
     printf("rra\n");
 }
 
-void    rot(lst l)
+void    rot(t_lst l)
 {
     l->tail = l->head;
     l->head = l->next[l->head];
     printf("ra\n");
 }
 
-void	push(lst a, lst b)
+void	push(t_lst a, t_lst b, int chunck)
 {
-	lst_ins_back(b, a->info[a->head]);
-	rrot(b);
+	lst_ins_back(b, a->info[a->head].num);
+	b->head = b->tail;
+    b->tail = b->prev[b->tail];
+    b->info[b->head].chunck = chunck;
 
 	a->prev[a->next[a->head]] = a->tail;
     a->next[a->tail] = a->next[a->head];
@@ -26,9 +28,9 @@ void	push(lst a, lst b)
     printf("push\n");
 }
 
-void    swap(lst l)
+void    swap(t_lst l)
 {
-    int tmp;
+    t_elem tmp;
 
     printf("sa\n");
     tmp = l->info[l->head];

@@ -4,38 +4,54 @@
 # include <unistd.h>
 # include <stdio.h>
 
-typedef struct LST_STRUCT
+typedef struct s_elem
 {
-    int *next;
-    int *info;
-    int *prev;
-    int tail;
-    int head;
-    int free;
-    int size;
+    int num;
+    int chunck;
+    struct s_elem *next;
+    struct s_elem *prev;
+} t_elem;
+
+struct s_lst
+{
+    t_elem *head;
+    t_elem *tail;
+    int curr_chunck;
     int qnt;
-}   lst_struct;
+};
 
-typedef lst_struct *lst;
+typedef struct s_lst *t_lst;
 
-lst     lst_new(int size);
+t_lst     lst_new(int size);
 
-void    lst_print(lst l);
+void    lst_print(t_lst l);
 
-void    lst_debug(lst l);
+void    lst_ins_back(t_lst l, int v);
 
-void    lst_ins_back(lst l, int v);
+void    lst_debug(t_lst l);
 
-int     lst_is_ordered(lst l);
+int     lst_is_ordered(t_lst l);
 
-void    rot(lst l);
+int find_midpoint(t_lst l);
 
-void    rrot(lst l);
+void    rot(t_lst l);
 
-void    swap(lst l);
+void    rrot(t_lst l);
 
-void    push(lst a, lst b);
+void    swap(t_lst l);
 
-int     lis(lst a);
+void    push(t_lst a, t_lst b, int chunck);
+
+void	push_swap(t_lst a, t_lst b);
+
+void    start(t_lst a, t_lst b);
+
+int chunck_ordered(t_lst l, int chunck);
+
+int pushable(t_lst l, int mid);
+
+int rot_or_rrot(t_lst l, int mid);
+
+// int     lis(lst a);
 
 #endif
