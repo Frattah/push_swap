@@ -1,56 +1,32 @@
 #include "push_swap.h"
+#include <unistd.h>
 
-// void    start(t_lst a, t_lst b)
-// {
-//     int mid;
-// 	int	i;
-// 	int	size;
-//     int rot_type;
+void    start(t_lst a, t_lst b)
+{
+    int mid;
+    int size;           // salvo la lunghezza perché viene modificata strada facendo da push
+	int	j;
 
-// 	size = a->qnt;
-// 	i = -1;
-// 	mid = find_midpoint(a);
-//     rot_type = 0;
-//     if (rot_or_rrot(a,mid))
-//         rot_type = 1;
-// 	while (++i < size && pushable(a, mid))
-// 	{
-// 		if (a->info[a->head].num < mid)
-//         {
-// 			push(a,b, b->curr_chunck);
-//         }
-// 		else
-//         {
-//             if (rot_type)
-//                 rot(a);
-//             else
-//                 rrot(a);
-//         }
-// 	}
-// }
+    size = a->ln;
+    j = -1;
+	mid = find_midpoint(a, a->cur_col);
+    printf("%d\n",mid);
+	while (++j < size && pushable(a, mid))
+	{
+        printf("[%d]\n",a->head->num);
+		if (a->head->num < mid)
+			push(a,b, 1);
+		else if (a->head->num >= mid)
+            rot(a);
+        lst_print(a);
+        lst_print(b);
+	}
+}
 
-// void	push_swap(t_lst a, t_lst b)
-// {
-//     int c;
-
-//     while (!lst_is_ordered(a) || a->qnt != 2)
-//     {
-//         b->curr_chunck++;
-//         start(a,b);
-//     }
-//     if (!lst_is_ordered(a))
-//         swap(a);
-//     c = b->info[b->head].chunck;
-//     lst_debug(a);
-// 	lst_debug(b);
-//     if (chunck_ordered(b, c))
-//     {
-//         while (b->info[b->head].chunck == c)
-//             push(b,a,c);
-//     }
-//     lst_debug(a);
-// 	lst_debug(b);
-// }
+void	push_swap(t_lst a, t_lst b)
+{
+    start(a,b);
+}
 
 int main(int argc, char **argv)
 {
@@ -58,17 +34,15 @@ int main(int argc, char **argv)
     t_lst a;
     t_lst b;
     
-    a = (t_lst) malloc(sizeof(struct s_lst));
-    b = (t_lst) malloc(sizeof(struct s_lst));
-    a->qnt = 0;
     i = 1;
+    a = lst_init('a');
+    b = lst_init('b');
     while (i <= argc - 1)
     {
         lst_ins_back(a, atoi(argv[i]));
         i++;
     }
     // lst_debug(a);
-	//push_swap(a,b);
-	lst_print(a);
+	push_swap(a,b);
 	// lst_print(b);
 }

@@ -3,37 +3,63 @@
 void    rrot(t_lst l)
 {
     l->head = l->tail;
-    l->tail = l->prev[l->tail];
-    printf("rra\n");
+    l->tail = l->tail->prev;
+    if (l->id == 'a')
+        printf("rra\n");
+    else if (l->id == 'b')
+        printf("rrb\n");
 }
 
 void    rot(t_lst l)
 {
     l->tail = l->head;
-    l->head = l->next[l->head];
-    printf("ra\n");
+    l->head = l->head->next;
+        if (l->id == 'a')
+        printf("ra\n");
+    else if (l->id == 'b')
+        printf("rb\n");
 }
 
-void	push(t_lst a, t_lst b, int chunck)
+void	push(t_lst a, t_lst b, int col)
 {
-	lst_ins_back(b, a->info[a->head].num);
-	b->head = b->tail;
-    b->tail = b->prev[b->tail];
-    b->info[b->head].chunck = chunck;
+    t_elem *pu;
 
-	a->prev[a->next[a->head]] = a->tail;
-    a->next[a->tail] = a->next[a->head];
-	a->head = a->next[a->head];
-    a->qnt--;
-    printf("push\n");
+    pu = a->head;
+    if (a->id == 'a')
+        printf("pa\n");
+    else if (a->id == 'b')
+        printf("pb\n");
+    a->head = a->head->next;
+    a->head->prev = a->tail;
+    a->tail->next = a->head;
+    if (b->head != NULL && b->tail != NULL)
+    {
+        b->head->prev = pu; 
+        b->tail->next = pu;
+        pu->next = b->head;
+        pu->prev = b->tail; 
+        b->head = pu;
+    }
+    else if (b->head == NULL && b->tail == NULL)
+    {
+        b->head = pu;
+        b->tail = pu;
+        pu->next = pu;
+        pu->prev = pu;
+    }
+    a->ln--;
+    b->ln++;
 }
 
 void    swap(t_lst l)
 {
-    t_elem tmp;
+    int tmp;
 
-    printf("sa\n");
-    tmp = l->info[l->head];
-    l->info[l->head] = l->info[l->next[l->head]];
-    l->info[l->next[l->head]] = tmp; 
+    if (l->id == 'a')
+        printf("sa\n");
+    else
+        printf("sb\n");
+    tmp =  l->head->num;
+    l->head->num = l->head->next->num;
+    l->head->next->num = tmp;
 }
