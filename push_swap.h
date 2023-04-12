@@ -68,4 +68,6 @@ int     is_sorted(t_lst a);
 
 int     rot_or_rrot(t_lst l);
 
+int     midpoint(t_lst l);
+
 #endif

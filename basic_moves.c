@@ -48,9 +48,9 @@ void	push(t_lst a, t_lst b)
 
     pu = a->head;
     if (a->id == 'a')
-        printf("pa\n");
-    else if (a->id == 'b')
         printf("pb\n");
+    else if (a->id == 'b')
+        printf("pa\n");
     a->head = a->head->next;
     a->head->prev = a->tail;
     a->tail->next = a->head;

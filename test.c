@@ -1,6 +1,26 @@
 #include "push_swap.h"
 #include <unistd.h>
 
+void    three_sort(t_lst a, t_lst b)
+{
+    if (a->head->num > a->head->next->num && a->tail->num > a->head->next->num && a->head->num < a->tail->num)
+        swap(a);
+    else if (a->head->num > a->head->next->num && a->tail->num < a->head->next->num)
+    {
+        rot(a);
+        swap(a);
+    }
+    else if (a->head->num < a->head->next->num && a->tail->num < a->head->next->num && a->head->num < a->tail->num)
+    {
+        rrot(a);
+        swap(a);
+    }
+    else if (a->head->num > a->head->next->num && a->tail->num > a->head->next->num && a->head->num > a->tail->num)
+        rot(a);
+    else if (a->head->num < a->head->next->num && a->tail->num < a->head->next->num && a->head->num > a->tail->num)
+        rrot(a);
+}
+
 int main(int argc, char **argv)
 {
     int i;
@@ -8,56 +28,21 @@ int main(int argc, char **argv)
     t_lst a;
     t_lst b;
     
-    i = 1;
+    i = 0;
     a = lst_init('a');
     b = lst_init('b');
-    while (i <= argc - 1)
-    {
+    while (++i <= argc - 1)
         lst_ins_back(a, atoi(argv[i]));
-        i++;
-    }
-
-    // PUSHA
+    opt = midpoint(a);
     while (a->ln > 3)
+    {
         push(a,b);
-
-    // ORDINA I TRE
-
-    // 2 1 3
-    if (a->head->num > a->head->next->num && a->tail->num > a->head->next->num && a->head->num < a->tail->num)
-        swap(a);
-
-    // 3 2 1
-    else if (a->head->num > a->head->next->num && a->tail->num < a->head->next->num)
-    {
-        rot(a);
-        swap(a);
+        if (b->head->num < opt)
+            rot(b);
     }
-
-    // 1 3 2
-    else if (a->head->num < a->head->next->num && a->tail->num < a->head->next->num && a->head->num < a->tail->num)
-    {
-        rrot(a);
-        swap(a);
-    }
-    
-    // 3 1 2
-    else if (a->head->num > a->head->next->num && a->tail->num > a->head->next->num && a->head->num > a->tail->num)
-        rot(a);
-
-    // 2 3 1
-    else if (a->head->num < a->head->next->num && a->tail->num < a->head->next->num && a->head->num > a->tail->num)
-        rrot(a);
-
-    // ORDINA
+    three_sort(a,b);
     while(a->ln != argc - 1)
-    {
-        lst_print(a);
-        lst_print(b);
         calc_moves_b(a,b);
-    }
-
-    // AGGIUSTA
     opt = rot_or_rrot(a);
     while(a->head->num > a->tail->num)
     {
@@ -66,9 +51,4 @@ int main(int argc, char **argv)
         else
             rrot(a);
     }
-
-
-    lst_print(a);
-    // lst_print(b);
-    // printf("Mosse: %d\n", a->cnt + b->cnt);
 }

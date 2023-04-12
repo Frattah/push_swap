@@ -61,9 +61,9 @@ void choice_move(t_lst a, t_lst b)
     min = INT_MAX;
     while (++i < b->ln)
     {
-        if ((a->mov[i] >= 0 && b->mov[i] >= 0
-            || a->mov[i] < 0 && b->mov[i] < 0)
-            && min > max(abs(a->mov[i]),abs(b->mov[i])))
+        if (((a->mov[i] >= 0 && b->mov[i] >= 0)
+            || (a->mov[i] < 0 && b->mov[i] < 0))
+            && (min > max(abs(a->mov[i]),abs(b->mov[i]))))
         {
             min = max(abs(a->mov[i]),abs(b->mov[i]));
             j = i;
