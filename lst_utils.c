@@ -13,7 +13,7 @@ void    lst_print(t_lst l)
     i = l->head;
     while (j < l->ln)        
     {
-        printf("(%d|%d)", i->num, i->col);
+        printf("(%d)", i->num);
         if (j + 1 != l->ln)
             printf("->");
         i = i->next;
@@ -31,9 +31,9 @@ t_lst lst_init(char id)
         return (NULL);
     l->head = NULL;
     l->tail = NULL;
-    l->cur_col = 0;
     l->ln = 0;
     l->id = id;
+    l->cnt = 0;
     return (l);
 }
 
@@ -56,27 +56,26 @@ void    lst_ins_back(t_lst l, int v)
         l->tail->next = nw;
     }
     nw->num = v;
-    nw->col = 0;
     l->tail = nw;
     if (l->ln == 0)
         l->head = nw;
     l->ln++;
 }
 
-int lst_is_ordered(t_lst l, int col)
+int is_sorted(t_lst l)
 {
-    int     j;
-    int     viol;
-    t_elem  *i;
+    int tmp;
+    int i;
+    t_elem *el;
 
-    viol = 0;
-    j = -1;
-    i = l->head;
-    while (++j < l->ln && i->col == col)
+    el = l->head;
+    i = -1;
+    tmp = 0;
+    while (++i < l->ln)
     {
-        if (i->num < i->next->num)
-            viol++;
-        i = i->next;
+        if (el->num > el->next->num)
+            tmp++;
+        el = el->next;
     }
-    return (viol < 2);
+    return (tmp < 2);
 }

@@ -1,36 +1,10 @@
 #include "push_swap.h"
 #include <unistd.h>
 
-void    start(t_lst a, t_lst b)
-{
-    int mid;
-    int size;           // salvo la lunghezza perché viene modificata strada facendo da push
-	int	j;
-
-    size = a->ln;
-    j = -1;
-	mid = find_midpoint(a, a->cur_col);
-    printf("%d\n",mid);
-	while (++j < size && pushable(a, mid))
-	{
-        printf("[%d]\n",a->head->num);
-		if (a->head->num < mid)
-			push(a,b, 1);
-		else if (a->head->num >= mid)
-            rot(a);
-        lst_print(a);
-        lst_print(b);
-	}
-}
-
-void	push_swap(t_lst a, t_lst b)
-{
-    start(a,b);
-}
-
 int main(int argc, char **argv)
 {
     int i;
+    int opt;
     t_lst a;
     t_lst b;
     
@@ -42,7 +16,59 @@ int main(int argc, char **argv)
         lst_ins_back(a, atoi(argv[i]));
         i++;
     }
-    // lst_debug(a);
-	push_swap(a,b);
-	// lst_print(b);
+
+    // PUSHA
+    while (a->ln > 3)
+        push(a,b);
+
+    // ORDINA I TRE
+
+    // 2 1 3
+    if (a->head->num > a->head->next->num && a->tail->num > a->head->next->num && a->head->num < a->tail->num)
+        swap(a);
+
+    // 3 2 1
+    else if (a->head->num > a->head->next->num && a->tail->num < a->head->next->num)
+    {
+        rot(a);
+        swap(a);
+    }
+
+    // 1 3 2
+    else if (a->head->num < a->head->next->num && a->tail->num < a->head->next->num && a->head->num < a->tail->num)
+    {
+        rrot(a);
+        swap(a);
+    }
+    
+    // 3 1 2
+    else if (a->head->num > a->head->next->num && a->tail->num > a->head->next->num && a->head->num > a->tail->num)
+        rot(a);
+
+    // 2 3 1
+    else if (a->head->num < a->head->next->num && a->tail->num < a->head->next->num && a->head->num > a->tail->num)
+        rrot(a);
+
+    // ORDINA
+    while(a->ln != argc - 1)
+    {
+        lst_print(a);
+        lst_print(b);
+        calc_moves_b(a,b);
+    }
+
+    // AGGIUSTA
+    opt = rot_or_rrot(a);
+    while(a->head->num > a->tail->num)
+    {
+        if (!opt)
+            rot(a);
+        else
+            rrot(a);
+    }
+
+
+    lst_print(a);
+    // lst_print(b);
+    // printf("Mosse: %d\n", a->cnt + b->cnt);
 }

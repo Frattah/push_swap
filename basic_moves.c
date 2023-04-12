@@ -4,6 +4,7 @@ void    rrot(t_lst l)
 {
     l->head = l->tail;
     l->tail = l->tail->prev;
+    l->cnt++;
     if (l->id == 'a')
         printf("rra\n");
     else if (l->id == 'b')
@@ -14,13 +15,34 @@ void    rot(t_lst l)
 {
     l->tail = l->head;
     l->head = l->head->next;
-        if (l->id == 'a')
+    l->cnt++;
+    if (l->id == 'a')
         printf("ra\n");
     else if (l->id == 'b')
         printf("rb\n");
 }
 
-void	push(t_lst a, t_lst b, int col)
+void    double_rrot(t_lst a, t_lst b)
+{
+    a->head = a->tail;
+    a->tail = a->tail->prev;
+    b->head = b->tail;
+    b->tail = b->tail->prev;
+    a->cnt++;
+    printf("rrr\n");
+}
+
+void    double_rot(t_lst a, t_lst b)
+{
+    a->tail = a->head;
+    a->head = a->head->next;    
+    b->tail = b->head;
+    b->head = b->head->next;
+    a->cnt++;
+    printf("rr\n");
+}
+
+void	push(t_lst a, t_lst b)
 {
     t_elem *pu;
 
@@ -49,6 +71,7 @@ void	push(t_lst a, t_lst b, int col)
     }
     a->ln--;
     b->ln++;
+    a->cnt++;
 }
 
 void    swap(t_lst l)
