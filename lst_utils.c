@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lst_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frmonfre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/13 08:40:33 by frmonfre          #+#    #+#             */
+/*   Updated: 2023/04/13 08:40:51 by frmonfre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	lst_print(t_lst l)
 {
-	int	j;
+	int		j;
 	t_elem	*i;
 
 	j = 0;
@@ -64,8 +76,8 @@ void	lst_ins_back(t_lst l, int v)
 
 int	is_sorted(t_lst l)
 {
-	int	tmp;
-	int	i;
+	int		tmp;
+	int		i;
 	t_elem	*el;
 
 	el = l->head;
@@ -78,4 +90,25 @@ int	is_sorted(t_lst l)
 		el = el->next;
 	}
 	return (tmp < 2);
+}
+
+void	lst_del(t_lst l)
+{
+	int		i;
+	t_elem	*el;
+
+	if (l->ln == 0)
+	{
+		free(l);
+		return ;
+	}
+	i = -1;
+	el = l->tail;
+	while (++i < l->ln - 1)
+	{
+		el = el->prev;
+		free(el->next);
+	}
+	free(el);
+	free(l);
 }

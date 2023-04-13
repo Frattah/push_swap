@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frmonfre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/13 08:41:03 by frmonfre          #+#    #+#             */
+/*   Updated: 2023/04/13 11:21:54 by frmonfre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	calc_moves_b(t_lst a, t_lst b)
 {
-	int	mid;
-	int	i;
+	int		mid;
+	int		i;
 	t_elem	*el;
 
 	el = b->head;
@@ -19,17 +31,17 @@ void	calc_moves_b(t_lst a, t_lst b)
 			b->mov[i] = i;
 		else
 			b->mov[i] = i - b->ln;
-		a->mov[i] = calc_moves_a(a, b->ln, el->num);
+		a->mov[i] = calc_moves_a(a, el->num);
 	el = el->next;
 	}
 	choice_move(a, b);
 }
 
-int	calc_moves_a(t_lst a, int size, int num)
+int	calc_moves_a(t_lst a, int num)
 {
 	t_elem	*el;
-	int	i;
-	int	mid;
+	int		i;
+	int		mid;
 
 	mid = a->ln / 2;
 	i = -1;
@@ -72,7 +84,7 @@ void	choice_move(t_lst a, t_lst b)
 			j = i;
 		}
 	}
-	push_swap(a, b, j);
+	push_swap1(a, b, j);
 	free(a->mov);
 	free(b->mov);
 }
