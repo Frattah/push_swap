@@ -8,7 +8,7 @@ from math import factorial
 MAX = 2147483647
 MIN = -2147483648
 P = "./push_swap"
-C = "./checker_Mac"
+C = "./checker_linux"
 CB = "./checker"
 
 g = "\033[32m"

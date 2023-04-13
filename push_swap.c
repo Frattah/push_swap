@@ -2,12 +2,12 @@
 
 void push_swap(t_lst a, t_lst b, int j)
 {
-    int i;
+	int i;
 
-    if ((a->mov[j] >= 0 && b->mov[j] >= 0)
-        || (a->mov[j] < 0 && b->mov[j] < 0))
-    {
-        i = 0;
+	if ((a->mov[j] >= 0 && b->mov[j] >= 0)
+			|| (a->mov[j] < 0 && b->mov[j] < 0))
+	{
+		i = 0;
         while (i < min(abs(a->mov[j]), abs(b->mov[j])))
         {
             if (a->mov[j] >= 0)
