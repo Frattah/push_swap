@@ -49,3 +49,47 @@ int	is_space(const char c)
 	return (c == '\n' || c == '\t' || c == '\v'
 		|| c == '\f' || c == '\r' || c == ' ');
 }
+
+void	sort(int *a, int size)
+{
+	int	i;
+	int	j;
+	int	tmp;
+
+	i = -1;
+	j = -1;
+	while (++i < size)
+	{
+		j = -1;
+		while (++j < size - 1)
+		{
+			if (a[j] > a[j + 1])
+			{
+				tmp = a[j];
+				a[j] = a[j + 1];
+				a[j + 1] = tmp;
+			}
+		}
+	}
+}
+
+int	non_integer(int argc, char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (i < argc)
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			if (!(argv[i][j] >= '0' && argv[i][j] <= '9')
+				&& !is_space(argv[i][j]) && argv[i][j] != '-')
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}

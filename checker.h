@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef CHECKER_H
+# define CHECKER_H
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
 
 typedef struct s_elem
 {
@@ -36,9 +35,11 @@ typedef struct s_lst	*t_lst;
 
 t_lst	lst_init(char id);
 
+void	lst_print(t_lst l);
+
 void	lst_ins_back(t_lst l, int v);
 
-void	lst_del(t_lst l);
+void	is_sorted(t_lst a);
 
 void	rot(t_lst l);
 
@@ -82,10 +83,14 @@ int		duplicates(t_lst a);
 
 int		ft_atoi(const char *str);
 
+char	**ft_split(char const *s, char c);
+
 int		ft_strlen(const char *s);
 
 int		is_space(char c);
 
-int		non_integer(int argc, char **argv);
+void	lst_del(t_lst l);
+
+int		non_integer(int argc, char **argv)
 
 #endif

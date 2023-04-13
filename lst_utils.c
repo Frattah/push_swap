@@ -12,29 +12,6 @@
 
 #include "push_swap.h"
 
-void	lst_print(t_lst l)
-{
-	int		j;
-	t_elem	*i;
-
-	j = 0;
-	printf("\n");
-	if (l->id == 'a')
-		printf("A:  ");
-	else if (l->id == 'b')
-		printf("B:  ");
-	i = l->head;
-	while (j < l->ln)
-	{
-		printf("(%d)", i->num);
-		if (j + 1 != l->ln)
-			printf("->");
-		i = i->next;
-		j++;
-	}
-	printf("\n");
-}
-
 t_lst	lst_init(char id)
 {
 	t_lst	l;
@@ -47,6 +24,30 @@ t_lst	lst_init(char id)
 	l->ln = 0;
 	l->id = id;
 	return (l);
+}
+
+int	duplicates(t_lst a)
+{
+	int		i;
+	int		j;
+	t_elem	*el1;
+	t_elem	*el2;
+
+	i = -1;
+	el1 = a->head;
+	while (++i < a->ln)
+	{
+		j = i;
+		el2 = el1->next;
+		while (++j < a->ln)
+		{
+			if (el2->num == el1->num)
+				return (1);
+			el2 = el2->next;
+		}
+		el1 = el1->next;
+	}
+	return (0);
 }
 
 void	lst_ins_back(t_lst l, int v)
@@ -66,30 +67,13 @@ void	lst_ins_back(t_lst l, int v)
 		nw->prev = l->tail;
 		nw->next = l->head;
 		l->tail->next = nw;
+		l->head->prev = nw;
 	}
 	nw->num = v;
 	l->tail = nw;
 	if (l->ln == 0)
 		l->head = nw;
 	l->ln++;
-}
-
-int	is_sorted(t_lst l)
-{
-	int		tmp;
-	int		i;
-	t_elem	*el;
-
-	el = l->head;
-	i = -1;
-	tmp = 0;
-	while (++i < l->ln)
-	{
-		if (el->num > el->next->num)
-			tmp++;
-		el = el->next;
-	}
-	return (tmp < 2);
 }
 
 void	lst_del(t_lst l)
@@ -102,13 +86,14 @@ void	lst_del(t_lst l)
 		free(l);
 		return ;
 	}
-	i = -1;
+	i = 0;
 	el = l->tail;
-	while (++i < l->ln - 1)
+	while (i < l->ln - 1)
 	{
 		el = el->prev;
 		free(el->next);
+		i++;
 	}
-	free(el);
+	free(l->head);
 	free(l);
 }

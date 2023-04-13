@@ -20,9 +20,9 @@ void	push(t_lst a, t_lst b)
 	a->ln--;
 	b->ln++;
 	if (a->id == 'a')
-		printf("pb\n");
+		write(1, "pb\n", 3);
 	else if (a->id == 'b')
-		printf("pa\n");
+		write(1, "pa\n", 3);
 	a->head = a->head->next;
 	a->head->prev = a->tail;
 	a->tail->next = a->head;
@@ -46,9 +46,9 @@ void	swap(t_lst l)
 	int	tmp;
 
 	if (l->id == 'a')
-		printf("sa\n");
+		write(1, "sa\n", 3);
 	else
-		printf("sb\n");
+		write(1, "sb\n", 3);
 	tmp = l->head->num;
 	l->head->num = l->head->next->num;
 	l->head->next->num = tmp;

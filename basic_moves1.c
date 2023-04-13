@@ -17,9 +17,9 @@ void	rrot(t_lst l)
 	l->head = l->tail;
 	l->tail = l->tail->prev;
 	if (l->id == 'a')
-		printf("rra\n");
+		write(1, "rra\n", 4);
 	else if (l->id == 'b')
-		printf("rrb\n");
+		write(1, "rrb\n", 4);
 }
 
 void	rot(t_lst l)
@@ -27,9 +27,9 @@ void	rot(t_lst l)
 	l->tail = l->head;
 	l->head = l->head->next;
 	if (l->id == 'a')
-		printf("ra\n");
+		write(1, "ra\n", 3);
 	else if (l->id == 'b')
-		printf("rb\n");
+		write(1, "rb\n", 3);
 }
 
 void	double_rrot(t_lst a, t_lst b)
@@ -38,7 +38,7 @@ void	double_rrot(t_lst a, t_lst b)
 	a->tail = a->tail->prev;
 	b->head = b->tail;
 	b->tail = b->tail->prev;
-	printf("rrr\n");
+	write(1, "rrr\n", 4);
 }
 
 void	double_rot(t_lst a, t_lst b)
@@ -47,5 +47,5 @@ void	double_rot(t_lst a, t_lst b)
 	a->head = a->head->next;
 	b->tail = b->head;
 	b->head = b->head->next;
-	printf("rr\n");
+	write(1, "rr\n", 3);
 }

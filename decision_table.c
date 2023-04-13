@@ -68,6 +68,7 @@ void	choice_move(t_lst a, t_lst b)
 	int	j;
 
 	i = -1;
+	j = 0;
 	min = INT_MAX;
 	while (++i < b->ln)
 	{

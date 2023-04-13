@@ -1,1 +1,0 @@
-tests: 100000 - ok: 100000 - ko: 0 - numbers: 100 - max: 682 - min: 1 - avg: 574 - time: 2960.12

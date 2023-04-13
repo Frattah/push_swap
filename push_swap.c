@@ -12,6 +12,30 @@
 
 #include "push_swap.h"
 
+void	push_swap0(t_lst a, t_lst b, int ln)
+{
+	int	tmp;
+
+	tmp = midpoint(a);
+	while (a->ln > 3)
+	{
+		push(a, b);
+		if (b->head->num < tmp && b->ln > 1)
+			rot(b);
+	}
+	three_sort(a);
+	while (a->ln != ln)
+		calc_moves_b(a, b);
+	tmp = rot_or_rrot(a);
+	while (a->head->num > a->tail->num)
+	{
+		if (!tmp)
+			rot(a);
+		else
+			rrot(a);
+	}
+}
+
 void	push_swap1(t_lst a, t_lst b, int j)
 {
 	int	i;
