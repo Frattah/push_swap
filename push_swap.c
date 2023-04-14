@@ -12,10 +12,14 @@
 
 #include "push_swap.h"
 
-void	push_swap0(t_lst a, t_lst b, int ln)
+void	push_swap0(t_lst a, t_lst b)
 {
+	int	ln;
 	int	tmp;
 
+	ln = a->ln;
+	if (is_sorted(a))
+		exit(0);
 	tmp = midpoint(a);
 	while (a->ln > 3)
 	{

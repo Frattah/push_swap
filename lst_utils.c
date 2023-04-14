@@ -97,3 +97,21 @@ void	lst_del(t_lst l)
 	free(l->head);
 	free(l);
 }
+
+int	is_sorted(t_lst l)
+{
+	int		tmp;
+	int		i;
+	t_elem	*el;
+
+	el = l->head;
+	i = -1;
+	tmp = 0;
+	while (++i < l->ln)
+	{
+		if (el->num > el->next->num)
+			tmp++;
+		el = el->next;
+	}
+	return (tmp < 2);
+}

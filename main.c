@@ -6,7 +6,7 @@
 /*   By: frmonfre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 08:41:39 by frmonfre          #+#    #+#             */
-/*   Updated: 2023/04/13 08:45:02 by frmonfre         ###   ########.fr       */
+/*   Updated: 2023/04/14 09:52:08 by frmonfre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	build_lst_from_str(t_lst a, char **argv)
 	{
 		tmp = ft_atoi(argv[1] + j);
 		while (argv[1][j] && ((argv[1][j] >= '0' && argv[1][j] <= '9')
-			|| (argv[1][j] == '-' && is_space(argv[1][j - 1]))))
+			|| argv[1][j] == '-' || is_space(argv[1][j - 1])))
 			j++;
 		while (argv[1][j] && is_space(argv[1][j]))
 			j++;
@@ -79,13 +79,12 @@ void	build_lst_from_str(t_lst a, char **argv)
 
 int	main(int argc, char **argv)
 {
-	int		ln;
 	t_lst	a;
 	t_lst	b;
 
 	if (argc == 1)
 		exit(1);
-	if (non_integer(argc, argv))
+	if (non_integer(argc, argv) || !argv[1][0])
 	{
 		write(2, "Error\n", 6);
 		exit(1);
@@ -98,11 +97,10 @@ int	main(int argc, char **argv)
 		build_lst_from_args(a, argc, argv);
 	if (duplicates(a))
 	{
-		ln = write(2, "Error\n", 6);
+		write(2, "Error\n", 6);
 		exit(1);
 	}
-	ln = a->ln;
-	push_swap0(a, b, ln);
+	push_swap0(a, b);
 	lst_del(a);
 	lst_del(b);
 }

@@ -26,6 +26,29 @@ int	rot_or_rrot(t_lst l)
 	return (1);
 }
 
+void	sort(int *a, int size)
+{
+	int	i;
+	int	j;
+	int	tmp;
+
+	i = -1;
+	j = -1;
+	while (++i < size)
+	{
+		j = -1;
+		while (++j < size - 1)
+		{
+			if (a[j] > a[j + 1])
+			{
+				tmp = a[j];
+				a[j] = a[j + 1];
+				a[j + 1] = tmp;
+			}
+		}
+	}
+}
+
 int	midpoint(t_lst l)
 {
 	t_elem	*el;
